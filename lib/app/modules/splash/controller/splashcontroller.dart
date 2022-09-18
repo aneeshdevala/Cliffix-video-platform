@@ -1,4 +1,6 @@
-import 'package:cliffix/app/modules/onboard/views/view.dart';
+import 'dart:async';
+
+import 'package:cliffix/app/modules/onboard/views/onboarding_page.dart';
 
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
@@ -8,8 +10,11 @@ class SpalashController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    Future.delayed(Duration(seconds: 3), () {
-      Get.off(const OnBoardings());
-    });
+    Timer(
+      const Duration(seconds: 2),
+      () => Get.off(
+        OnBoardings(),
+      ),
+    );
   }
 }

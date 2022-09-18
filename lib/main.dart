@@ -1,3 +1,4 @@
+import 'package:cliffix/app/modules/onboard/views/onboarding_page.dart';
 import 'package:cliffix/app/modules/splash/views/view.dart';
 import 'package:flutter/material.dart';
 
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const SplashScreen(),
+      home: OnBoardings(),
     );
   }
 }
