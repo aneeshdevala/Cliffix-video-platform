@@ -1,5 +1,7 @@
+import 'package:cliffix/app/modules/loginpage/view/homeviews.dart';
 import 'package:cliffix/app/modules/onboard/model/onboardingmodel.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_rx/get_rx.dart';
 import 'package:get/utils.dart';
 
@@ -12,6 +14,7 @@ class OnboardingConrrolletr extends GetxController {
   forwardAction() {
     if (isLastPage) {
       //homepage
+      Get.off(const LoginPage());
     } else {
       pageController.nextPage(
         duration: 1.seconds,
