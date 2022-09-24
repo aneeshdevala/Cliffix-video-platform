@@ -1,4 +1,4 @@
-import 'package:cliffix/app/modules/loginpage/view/homeviews.dart';
+import 'package:cliffix/app/modules/loginpage/view/loging_screen.dart';
 import 'package:cliffix/app/modules/onboard/model/onboardingmodel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
