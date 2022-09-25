@@ -4,6 +4,7 @@ import 'package:cliffix/app/modules/loginpage/view/loging_screen.dart';
 import 'package:cliffix/app/modules/onboard/bindings/onbordi_binding.dart';
 import 'package:cliffix/app/modules/onboard/views/onboarding_page.dart';
 import 'package:cliffix/app/modules/routes/app_routes.dart';
+import 'package:cliffix/app/modules/signup/view/sign_up.dart';
 import 'package:cliffix/app/modules/splash/bindings/splashbinding.dart';
 import 'package:cliffix/app/modules/splash/views/view.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
@@ -21,6 +22,10 @@ class AppPages {
         name: Routes.onboarding,
         page: () => OnBoardings(),
         binding: OnBoardingBinding()),
+    GetPage(
+        name: Routes.signup,
+        page: () => SignUpPage(),
+        binding: LoginBindings()),
     GetPage(
         name: Routes.login,
         page: () => const LoginPage(),

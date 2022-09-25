@@ -65,7 +65,7 @@ class LoginPage extends GetView<LoginController> {
                           return controller.validatePassword(value!);
                         },
                         decoration: InputDecoration(
-                            fillColor: Color(0xffF5F5F5),
+                            fillColor: const Color(0xffF5F5F5),
                             filled: true,
                             prefixIcon: const Icon(
                               Icons.lock,
@@ -178,7 +178,9 @@ class LoginPage extends GetView<LoginController> {
                         ),
                       ),
                       TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Get.toNamed(Routes.signup);
+                          },
                           child: const Text(
                             'Sign Up',
                             style: TextStyle(
