@@ -1,4 +1,4 @@
-import 'package:cliffix/app/modules/homepage/home_page.dart';
+import 'package:cliffix/app/modules/homepage/homeview/home_page.dart';
 import 'package:cliffix/app/modules/loginpage/bindings/login_bindings.dart';
 import 'package:cliffix/app/modules/loginpage/view/loging_screen.dart';
 import 'package:cliffix/app/modules/onboard/bindings/onbordi_binding.dart';

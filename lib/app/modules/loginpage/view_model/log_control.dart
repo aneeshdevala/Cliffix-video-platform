@@ -47,27 +47,26 @@ class LoginController extends GetxController {
 
   void checkLogin() {
     final isValid = loginFormKey.currentState!.validate();
-    if (!isValid) {
-      return;
-    } else if (!isValid) {
+    if (isValid) {
       isApiCallProcess.value = true;
-      LoginResponsemodel loginResponsemodel = LoginResponsemodel(
-        email: email,
-        password: password,
+      LoginResponsemodel model = LoginResponsemodel(
+        email: emailController.text,
+        password: passwordController.text,
       );
-      ApiServicelog.login(loginResponsemodel).then((value) {
-        if (value) {
+      ApiServicelog.login(model).then((response) {
+        if (response) {
+          print(response);
           Get.offAllNamed(Routes.home);
         } else {
           Get.snackbar("Error", "Something went wrong",
-              snackPosition: SnackPosition.BOTTOM);
+              snackPosition: SnackPosition.TOP);
         }
       });
     }
-    loginFormKey.currentState!.save();
-    Get.offAllNamed(Routes.home);
+    // loginFormKey.currentState!.save();
+    // Get.offAllNamed(Routes.home);
 
-    getStorage.write('id', 1);
-    getStorage.write("name", emailController.text);
+    // getStorage.write('id', 1);
+    // getStorage.write("name", emailController.text);
   }
 }
