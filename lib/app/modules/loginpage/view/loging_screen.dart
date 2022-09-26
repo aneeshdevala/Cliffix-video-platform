@@ -1,5 +1,5 @@
-import 'package:cliffix/app/modules/loginpage/controller/log_control.dart';
 import 'package:cliffix/app/modules/loginpage/view/widgets/or_widgets.dart';
+import 'package:cliffix/app/modules/loginpage/view_model/log_control.dart';
 import 'package:cliffix/app/modules/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';

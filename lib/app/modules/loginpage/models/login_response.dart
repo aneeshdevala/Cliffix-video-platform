@@ -1,8 +1,6 @@
 import 'dart:convert';
 
-import 'package:cliffix/app/modules/loginpage/models/login_model.dart';
-
-LoginResponse loginRequestModelFromJson(String str) =>
+LoginResponse loginResponseFromJson(String str) =>
     LoginResponse.fromJson(json.decode(str));
 
 class LoginResponse {
