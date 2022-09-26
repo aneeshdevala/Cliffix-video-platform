@@ -7,11 +7,11 @@ import 'package:http/http.dart' as http;
 
 class ApiServicelog {
   static var user = http.Client();
-  static Future<bool> login(LoginResponse model) async {
+  static Future<bool> login(LoginResponse loginmodel) async {
     Map<String, String> headers = {'Content-Type': 'application/json'};
     var url = Uri.http(Url.baseUrl, Url.login);
     var response = await user.post(url,
-        headers: headers, body: jsonEncode(model.toJson()));
+        headers: headers, body: jsonEncode(loginmodel.toJson()));
     if (response.statusCode == 200) {
       //shared pref
       await SharedService.saveLoginDetails(
