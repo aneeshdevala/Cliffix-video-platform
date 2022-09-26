@@ -20,11 +20,11 @@ class AppPages {
         binding: SplashBinding()),
     GetPage(
         name: Routes.onboarding,
-        page: () => OnBoardings(),
+        page: () => const OnBoardings(),
         binding: OnBoardingBinding()),
     GetPage(
         name: Routes.signup,
-        page: () => SignUpPage(),
+        page: () => const SignUpPage(),
         binding: LoginBindings()),
     GetPage(
         name: Routes.login,

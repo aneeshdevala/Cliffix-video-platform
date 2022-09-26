@@ -38,8 +38,8 @@ class LoginController extends GetxController {
   }
 
   String? validatePassword(String value) {
-    if (value.length < 6) {
-      return "Password must be 6 characters";
+    if (value.length < 8) {
+      return "Password must 8 characters and include special characters ";
     } else {
       return null;
     }
@@ -49,7 +49,7 @@ class LoginController extends GetxController {
     final isValid = loginFormKey.currentState!.validate();
     if (isValid) {
       isApiCallProcess.value = true;
-      LoginResponsemodel model = LoginResponsemodel(
+      LoginRegisteremodel model = LoginRegisteremodel(
         email: emailController.text,
         password: passwordController.text,
       );

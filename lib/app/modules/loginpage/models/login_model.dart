@@ -21,14 +21,14 @@
 
 import 'dart:convert';
 
-LoginResponsemodel loginRequestModelFromJson(String str) =>
-    LoginResponsemodel.fromJson(json.decode(str));
+LoginRegisteremodel loginRequestModelFromJson(String str) =>
+    LoginRegisteremodel.fromJson(json.decode(str));
 
-String loginRequestModelToJson(LoginResponsemodel data) =>
+String loginRequestModelToJson(LoginRegisteremodel data) =>
     json.encode(data.toJson());
 
-class LoginResponsemodel {
-  LoginResponsemodel({
+class LoginRegisteremodel {
+  LoginRegisteremodel({
     required this.email,
     required this.password,
   });
@@ -36,8 +36,8 @@ class LoginResponsemodel {
   String email;
   String password;
 
-  factory LoginResponsemodel.fromJson(Map<String, dynamic> json) =>
-      LoginResponsemodel(
+  factory LoginRegisteremodel.fromJson(Map<String, dynamic> json) =>
+      LoginRegisteremodel(
         email: json["email"],
         password: json["password"],
       );
