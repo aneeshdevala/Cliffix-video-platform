@@ -5,7 +5,7 @@ import 'package:cliffix/app/modules/loginpage/models/login_response.dart';
 import 'package:cliffix/app/modules/loginpage/view_model/api_service/shared_service.dart';
 import 'package:http/http.dart' as http;
 
-class ApiService {
+class ApiServicelog {
   static var user = http.Client();
   static Future<bool> login(LoginResponse model) async {
     Map<String, String> headers = {'Content-Type': 'application/json'};
