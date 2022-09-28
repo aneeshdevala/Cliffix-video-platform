@@ -3,4 +3,5 @@ class Url {
   static const register = '$baseUrl/api/auth/register';
   static const login = '$baseUrl/api/auth/login';
   static const google = '$baseUrl/api/auth/google-auth';
+  static const facebook = '$baseUrl/api/auth/facebook-auth';
 }

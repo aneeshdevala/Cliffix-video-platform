@@ -1,34 +1,59 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:cliffix/app/domain/api_endpoints.dart';
 import 'package:cliffix/app/modules/loginpage/models/login_model.dart';
 import 'package:cliffix/app/modules/loginpage/models/login_response.dart';
-import 'package:cliffix/app/modules/loginpage/view_model/api_service/shared_service.dart';
-import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 
-class ApiServicelog {
-  static var user = http.Client();
-  static Future<bool> login(LoginRegisteremodel loginmodel) async {
-    Map<String, String> headers = {'Content-Type': 'application/json'};
-    var url = Uri.parse(Url.login);
-    print(loginmodel.toJson());
-    var response = await user.post(
-      url,
-      // headers: headers,
-      body:
-          //  {"email": "ikkus0027@gmail.com", "password": "Ikkus@0027"}
-          // jsonEncode(loginmodel.toJson()),
-          loginmodel.toJson(),
-    );
-
-    print(response.body);
-    if (response.statusCode == 200 || response.statusCode == 201) {
-      //shared pref
-      print(response.body);
-
-      await SharedService.saveLoginDetails(
-          loginResponseFromJson(response.body));
-      return true;
-    } else {
-      return false;
+class API {
+  final dio = Dio(BaseOptions(baseUrl: Url.baseUrl));
+  Future<LoginResponse?> loginUser(LoginRegisteremodel model) async {
+    try {
+      final re = await checkIn();
+      if (re) {
+        Response response = await dio.post(Url.login, data: model.toJson());
+        if (response.statusCode == 200) {
+          debugPrint(response.statusCode.toString());
+          Fluttertoast.showToast(msg: 'Successfully Login');
+          return LoginResponse.fromJson(response.data);
+        } else if (response.statusCode == 401) {
+          Fluttertoast.showToast(msg: 'Bed CREADINTEIL');
+        } else if (response.statusCode == 409) {
+          Fluttertoast.showToast(msg: 'Already have an account in this mail');
+        } else if (response.statusCode == 400) {
+          Fluttertoast.showToast(msg: 'validation error');
+        } else {
+          return null;
+        }
+      }
+    } on TimeoutException catch (e) {
+      debugPrint(e.toString());
+    } on SocketException catch (e) {
+      debugPrint(e.toString());
+    } catch (e) {
+      if (e is DioError) {
+        if (e.response?.data == null) {
+          return LoginResponse(success: true);
+        }
+        return LoginResponse.fromJson(e.response!.data);
+      } else {
+        return LoginResponse(success: true);
+      }
     }
+    return null;
+  }
+
+  checkIn() async {
+    bool result = await InternetConnectionChecker().hasConnection;
+    if (result == true) {
+      print('Got Internet');
+    } else {
+      Fluttertoast.showToast(msg: 'no internet pls check It');
+    }
+    return result;
   }
 }

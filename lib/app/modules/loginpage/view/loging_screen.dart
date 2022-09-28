@@ -1,6 +1,8 @@
 import 'package:cliffix/app/modules/loginpage/view/widgets/or_widgets.dart';
+import 'package:cliffix/app/modules/loginpage/view_model/api_service/api_service.dart';
 import 'package:cliffix/app/modules/loginpage/view_model/log_control.dart';
 import 'package:cliffix/app/modules/routes/app_routes.dart';
+import 'package:cliffix/app/modules/signup/view_model/api_service/api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
@@ -111,7 +113,7 @@ class LoginPage extends GetView<LoginController> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      controller.checkLogin();
+                      controller.callLoginApi();
                     },
                     style: ElevatedButton.styleFrom(
                       primary: const Color(0xff6D3AFD),
@@ -153,12 +155,17 @@ class LoginPage extends GetView<LoginController> {
                               'assets/🦆 icon _google_.png',
                               height: 50,
                             ),
-                            const Text(
-                              "continue with Google",
-                              style: TextStyle(
-                                fontSize: 18,
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
+                            GestureDetector(
+                              onTap: () {
+                                // API.googleLogin();
+                              },
+                              child: const Text(
+                                "continue with Google",
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                           ],

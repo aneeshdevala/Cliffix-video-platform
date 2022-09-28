@@ -1,4 +1,7 @@
+import 'dart:developer';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:cliffix/app/modules/loginpage/models/login_model.dart';
+import 'package:cliffix/app/modules/loginpage/models/login_response.dart';
 import 'package:cliffix/app/modules/loginpage/view_model/api_service/api_service.dart';
 import 'package:cliffix/app/modules/routes/app_routes.dart';
 import 'package:cliffix/app/modules/signup/view_model/api_service/api_service.dart';
@@ -45,28 +48,24 @@ class LoginController extends GetxController {
     }
   }
 
-  void checkLogin() {
-    final isValid = loginFormKey.currentState!.validate();
-    if (isValid) {
-      isApiCallProcess.value = true;
-      LoginRegisteremodel model = LoginRegisteremodel(
-        email: emailController.text,
-        password: passwordController.text,
-      );
-      ApiServicelog.login(model).then((response) {
-        if (response) {
-          print(response);
-          Get.offAllNamed(Routes.home);
-        } else {
-          Get.snackbar("Error", "Something went wrong",
-              snackPosition: SnackPosition.TOP);
-        }
-      });
+  callLoginApi() async {
+    final data = LoginRegisteremodel(
+        email: emailController.text, password: passwordController.text);
+    LoginResponse? response = await API().loginUser(data);
+    if (response != null) {
+      log(response.user!.email.toString());
+      if (response.success!) {
+        storedataLogin(response);
+        Get.offAllNamed(Routes.home);
+      } else {
+        print(response.user.toString());
+      }
     }
-    // loginFormKey.currentState!.save();
-    // Get.offAllNamed(Routes.home);
+  }
 
-    // getStorage.write('id', 1);
-    // getStorage.write("name", emailController.text);
+  FlutterSecureStorage storage = const FlutterSecureStorage();
+  storedataLogin(LoginResponse response) async {
+    await storage.write(key: 'token', value: response.token);
+    await storage.write(key: 'user', value: response.user!.email.address);
   }
 }
