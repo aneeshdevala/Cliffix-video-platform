@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "62258648622",
+    "project_id": "cliffix-video-streaming",
+    "storage_bucket": "cliffix-video-streaming.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:62258648622:android:6b22f14024cf3ee81031bf",
+        "android_client_info": {
+          "package_name": "com.cliffix.googlesignin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "62258648622-jj54qs2oe1v23i7kbn1ujdlufk2vs614.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cliffix.googlesignin",
+            "certificate_hash": "88d1d4569478c2c708d20a79a4c3175e956cb65e"
+          }
+        },
+        {
+          "client_id": "62258648622-03g9k8oe63pjnelarugbdp3c3spev5ft.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDJtJJbf3WhdWwpT7LbzFLQzDMUK4S-Vc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "62258648622-03g9k8oe63pjnelarugbdp3c3spev5ft.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
