@@ -1,22 +1,23 @@
-import 'package:cliffix/app/modules/loginpage/models/login_response.dart';
+import 'dart:developer';
+
 import 'package:cliffix/app/modules/signup/model/signup_model.dart';
+import 'package:cliffix/app/modules/signup/model/signup_response.dart';
 import 'package:cliffix/app/modules/signup/view_model/api_service/api_service.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:get/get_navigation/src/extension_navigation.dart';
-import 'package:get/get_navigation/src/snackbar/snackbar.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/get_navigation.dart';
 import 'package:get/get_rx/get_rx.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:get/get_utils/src/get_utils/get_utils.dart';
-import 'package:get/instance_manager.dart';
-import 'package:get_storage/get_storage.dart';
 
-import '../../routes/app_routes.dart';
+import '../../loginpage/view/loging_screen.dart';
 
 class SignupController extends GetxController {
-  final getStorage = GetStorage();
+  // final getStorage = GetStorage();
   var isPasswordHidden = true.obs;
   var ckeckBool = false.obs;
-  var isApicalProcess = false.obs;
+  var isloading = false.obs;
+  var isAPIcallProcess = false.obs;
   final GlobalKey<FormState> signupFormKey = GlobalKey<FormState>();
   late TextEditingController emailController,
       passwordController,
@@ -76,34 +77,44 @@ class SignupController extends GetxController {
   //     return;
   //   }
   //   signupFormKey.currentState!.save();
-  //   Get.toNamed(Routes.home);
+  //   Get.toNamed(Routes.dashboardPage);
   //   getStorage.write("key", 1);
   // }
-  void checkLogin() {
-    final isValid = signupFormKey.currentState!.validate();
-    if (!isValid) {
-      return;
-    } else if (!isValid) {
-      isApicalProcess.value = true;
-      SignupModel model = SignupModel(
-        email: Email(verified: true, address: email).toString(),
-        password: password,
-      );
-      ApiService.signup(model).then((response) {
-        if (response.user != null) {
-          Get.offAllNamed(Routes.home);
-          Get.snackbar("done", "Regisstration successfull,",
-              snackPosition: SnackPosition.BOTTOM);
-        } else {
-          Get.snackbar("Error", "Regisstration failed,",
-              snackPosition: SnackPosition.BOTTOM);
-        }
-      });
-    }
-    // signupFormKey.currentState!.save();
-    // Get.offAllNamed(Routes.home);
 
-    // getStorage.write('id', 1);
-    // getStorage.write("name", emailController.text);
+  bool validateAndSave() {
+    final form = signupFormKey.currentState;
+    if (form!.validate()) {
+      form.save();
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  void isloadingfalse() {
+    bool isloading = false;
+  }
+
+  void callSignupApi() async {
+    final data = SignupModel(
+        email: emailController.text, password: passwordController.text);
+    SignupResponseModel? response = await SignupService().signupUser(data);
+    if (response != null) {
+      log(response.toString());
+      if (response.success == true) {
+        Get.defaultDialog(
+            title: 'Account created',
+            content:
+                const Text('Confirm mail sent to YOur Account plz Check it'),
+            onConfirm: () {
+              Get.to(() => const LoginPage());
+            },
+            onCancel: () {
+              Get.back();
+            });
+      }
+    } else {
+      log(response.toString());
+    }
   }
 }

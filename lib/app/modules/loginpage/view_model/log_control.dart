@@ -8,10 +8,15 @@ import 'package:cliffix/app/modules/signup/view_model/api_service/api_service.da
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginController extends GetxController {
+  var googleSignIn = GoogleSignIn();
+  var googleAccount = Rx<GoogleSignInAccount?>(null);
+
   final getStorage = GetStorage();
   var isPasswordHidden = true.obs;
+  var isloading = false.obs;
   var checkBool = false.obs;
   var isApiCallProcess = false.obs;
   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
@@ -51,7 +56,7 @@ class LoginController extends GetxController {
   callLoginApi() async {
     final data = LoginRegisteremodel(
         email: emailController.text, password: passwordController.text);
-    LoginResponse? response = await API().loginUser(data);
+    LoginResponse? response = await LoginApiService().loginUser(data);
     if (response != null) {
       log(response.user!.email.toString());
       if (response.success!) {
@@ -63,9 +68,23 @@ class LoginController extends GetxController {
     }
   }
 
+  void loadin() {
+    isloading.value = true;
+    Future.delayed(Duration(seconds: 3), () {
+      isloading.value = false;
+    });
+  }
+
   FlutterSecureStorage storage = const FlutterSecureStorage();
   storedataLogin(LoginResponse response) async {
     await storage.write(key: 'token', value: response.token);
     await storage.write(key: 'user', value: response.user!.email.address);
+  }
+
+  glogin() async {
+    googleAccount.value = await googleSignIn.signIn();
+    if (googleAccount.value != null) {
+      Get.offAllNamed(Routes.home);
+    }
   }
 }

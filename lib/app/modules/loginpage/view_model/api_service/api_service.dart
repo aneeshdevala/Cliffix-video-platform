@@ -1,59 +1,70 @@
 import 'dart:async';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:cliffix/app/domain/api_endpoints.dart';
 import 'package:cliffix/app/modules/loginpage/models/login_model.dart';
 import 'package:cliffix/app/modules/loginpage/models/login_response.dart';
+import 'package:cliffix/app/modules/signup/view_model/signup_controll.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
-class API {
-  final dio = Dio(BaseOptions(baseUrl: Url.baseUrl));
+import '../../../signup/view_model/api_service/dio_service.dart';
+
+class LoginApiService {
   Future<LoginResponse?> loginUser(LoginRegisteremodel model) async {
-    try {
-      final re = await checkIn();
-      if (re) {
-        Response response = await dio.post(Url.login, data: model.toJson());
+    if (await internetCheckIn()) {
+      try {
+        final b = model.toJson();
+        log(b.toString());
+        final response = await DioServies.postFunction(
+            url: Url.login, value: model.toJson());
+
         if (response.statusCode == 200) {
-          debugPrint(response.statusCode.toString());
-          Fluttertoast.showToast(msg: 'Successfully Login');
-          return LoginResponse.fromJson(response.data);
-        } else if (response.statusCode == 401) {
-          Fluttertoast.showToast(msg: 'Bed CREADINTEIL');
-        } else if (response.statusCode == 409) {
-          Fluttertoast.showToast(msg: 'Already have an account in this mail');
-        } else if (response.statusCode == 400) {
-          Fluttertoast.showToast(msg: 'validation error');
+          log('login successfull');
+          final data = response.data;
+          return LoginResponse.fromJson(data);
         } else {
-          return null;
+          return loginResponseFromJson(response.data);
         }
-      }
-    } on TimeoutException catch (e) {
-      debugPrint(e.toString());
-    } on SocketException catch (e) {
-      debugPrint(e.toString());
-    } catch (e) {
-      if (e is DioError) {
-        if (e.response?.data == null) {
-          return LoginResponse(success: true);
+      } on DioError catch (e) {
+        if (e.response?.statusCode == 401) {
+          log(e.response!.data['message'].toString());
+          log(e.response!.statusCode.toString());
+          Fluttertoast.showToast(msg: e.response!.data['message']);
+          return loginResponseFromJson(e.response!.data);
+        } else if (e.response?.statusCode == 403) {
+          // log(e.response!.statusCode.toString());
+          Fluttertoast.showToast(msg: e.response!.data['message']);
+          return loginResponseFromJson(e.response!.data);
+        } else {
+          Fluttertoast.showToast(msg: e.response!.data['message']);
+          return loginResponseFromJson(e.response!.data);
         }
-        return LoginResponse.fromJson(e.response!.data);
-      } else {
-        return LoginResponse(success: true);
+        // final errorrMessage = DioExceptions.fromDioError(e);
+        // log(errorrMessage.toString());
+      } on TimeoutException catch (e) {
+        Fluttertoast.showToast(msg: e.toString());
+        return loginResponseFromJson(e.toString());
+      } on SocketException catch (e) {
+        Fluttertoast.showToast(msg: e.toString());
+        return loginResponseFromJson(e.toString());
       }
-    }
-    return null;
+    } else {
+      log('Internet error');
+      return loginResponseFromJson('''{"hai":"sss"}''');
+    } // return null;
   }
 
-  checkIn() async {
+  internetCheckIn() async {
     bool result = await InternetConnectionChecker().hasConnection;
     if (result == true) {
-      print('Got Internet');
+      print('internet connected');
+      return true;
     } else {
-      Fluttertoast.showToast(msg: 'no internet pls check It');
+      Fluttertoast.showToast(msg: 'internet not connected');
     }
-    return result;
   }
 }

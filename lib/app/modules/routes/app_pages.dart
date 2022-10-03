@@ -24,7 +24,7 @@ class AppPages {
         binding: OnBoardingBinding()),
     GetPage(
         name: Routes.signup,
-        page: () => const SignUpPage(),
+        page: () => const SignUpView(),
         binding: LoginBindings()),
     GetPage(
         name: Routes.login,

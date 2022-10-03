@@ -8,6 +8,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginPage extends GetView<LoginController> {
   const LoginPage({Key? key}) : super(key: key);
@@ -113,7 +114,9 @@ class LoginPage extends GetView<LoginController> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      controller.callLoginApi();
+                      controller.isloading.value
+                          ? CircularProgressIndicator()
+                          : controller.callLoginApi();
                     },
                     style: ElevatedButton.styleFrom(
                       primary: const Color(0xff6D3AFD),
@@ -158,6 +161,7 @@ class LoginPage extends GetView<LoginController> {
                             GestureDetector(
                               onTap: () {
                                 // API.googleLogin();
+                                controller.glogin();
                               },
                               child: const Text(
                                 "continue with Google",

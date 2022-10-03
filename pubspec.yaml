@@ -31,7 +31,6 @@ dependencies:
     sdk: flutter
   get: ^4.6.5
   get_storage: 
-  http: 
   api_cache_manager: 
   dio: 
   fluttertoast: ^8.0.9
