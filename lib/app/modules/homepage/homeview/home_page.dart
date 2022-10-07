@@ -1,5 +1,7 @@
+import 'package:cliffix/app/modules/homepage/homeview/model/videomodel.dart';
 import 'package:cliffix/app/modules/homepage/homeview/widgets/filterchip.dart';
 import 'package:cliffix/app/modules/homepage/homeview/widgets/profile.dart';
+import 'package:cliffix/app/modules/homepage/homeview/widgets/videocard.dart';
 import 'package:cliffix/app/modules/loginpage/view_model/api_service/shared_service.dart';
 import 'package:flutter/material.dart';
 
@@ -13,8 +15,8 @@ class HomePage extends StatelessWidget {
         backgroundColor: Colors.black,
         automaticallyImplyLeading: false,
         leading: Padding(
-          padding: const EdgeInsets.only(left: 16),
-          child: Image.asset("assets/cliffixlogp.png"),
+          padding: const EdgeInsets.only(left: 10),
+          child: Image.asset("assets/cliffixlogo.png", height: 40),
         ),
         title: const Text(
           "Cliffix",
@@ -32,9 +34,16 @@ class HomePage extends StatelessWidget {
               color: Colors.grey,
             ),
           ),
-          Padding(
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(
+              Icons.notifications,
+              color: Colors.grey,
+            ),
+          ),
+          const Padding(
             padding: EdgeInsets.only(right: 16.0),
-            child: const ProfileWidgets(),
+            child: ProfileWidgets(),
           )
         ],
       ),
@@ -70,9 +79,9 @@ class HomePage extends StatelessWidget {
                   ],
                 ),
               ),
-              // videoCard(items[0]),
-              // videoCard(items[1]),
-              // videoCard(items[2]),
+              videoCard(items[0]),
+              videoCard(items[1]),
+              videoCard(items[2]),
             ],
           ),
         ),
