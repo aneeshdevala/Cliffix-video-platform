@@ -1,4 +1,4 @@
-import '../../../../util/images/images.dart';
+import 'package:cliffix/app/util/images/images.dart';
 
 class VideoModel {
   String? thumnail;

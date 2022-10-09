@@ -5,9 +5,7 @@ import 'dart:io';
 import 'package:cliffix/app/domain/api_endpoints.dart';
 import 'package:cliffix/app/modules/loginpage/models/login_model.dart';
 import 'package:cliffix/app/modules/loginpage/models/login_response.dart';
-import 'package:cliffix/app/modules/signup/view_model/signup_controll.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 

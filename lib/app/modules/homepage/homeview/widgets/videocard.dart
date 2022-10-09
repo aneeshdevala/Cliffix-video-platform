@@ -1,9 +1,12 @@
-import 'package:cliffix/app/modules/homepage/homeview/model/videomodel.dart';
+import 'package:cliffix/app/modules/homepage/model/videomodel.dart';
+import 'package:cliffix/app/modules/nowplay_screen/view/nowplay_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_core/get_core.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
 
 Widget videoCard(VideoModel model) {
   return InkWell(
-    onTap: () => NowplayScreen(),
+    onTap: () => Get.to(const NowplayScreen()),
     child: Container(
       margin: const EdgeInsets.only(bottom: 20.0),
       child: Column(

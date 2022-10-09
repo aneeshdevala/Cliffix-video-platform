@@ -1,8 +1,8 @@
-import 'package:cliffix/app/modules/homepage/homeview/model/videomodel.dart';
 import 'package:cliffix/app/modules/homepage/homeview/widgets/filterchip.dart';
 import 'package:cliffix/app/modules/homepage/homeview/widgets/profile.dart';
 import 'package:cliffix/app/modules/homepage/homeview/widgets/videocard.dart';
-import 'package:cliffix/app/modules/loginpage/view_model/api_service/shared_service.dart';
+import 'package:cliffix/app/modules/homepage/model/videomodel.dart';
+
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {

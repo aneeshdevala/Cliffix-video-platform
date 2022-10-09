@@ -15,7 +15,7 @@ class LoginPage extends GetView<LoginController> {
 
   @override
   Widget build(BuildContext context) {
-    final LoginController loginController = Get.put(LoginController());
+    Get.put(LoginController());
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -89,11 +89,11 @@ class LoginPage extends GetView<LoginController> {
                                       ? Icons.visibility
                                       : Icons.visibility_off,
                                   color: controller.isPasswordHidden.value
-                                      ? Color.fromARGB(255, 0, 0, 0)
+                                      ? const Color.fromARGB(255, 0, 0, 0)
                                       : Colors.grey,
                                 ))),
                       ))),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   Row(
                     children: [
                       Obx(
@@ -108,14 +108,14 @@ class LoginPage extends GetView<LoginController> {
                       const Text('Remember Me'),
                       const Spacer(),
                       GestureDetector(
-                          onTap: () => Get.toNamed(Routes.home),
+                          onTap: () => Get.toNamed(Routes.bottomnav),
                           child: const Text('Forgot Password?')),
                     ],
                   ),
                   ElevatedButton(
                     onPressed: () {
                       controller.isloading.value
-                          ? CircularProgressIndicator()
+                          ? const CircularProgressIndicator()
                           : controller.callLoginApi();
                     },
                     style: ElevatedButton.styleFrom(

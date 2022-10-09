@@ -4,7 +4,6 @@ import 'package:cliffix/app/modules/loginpage/models/login_model.dart';
 import 'package:cliffix/app/modules/loginpage/models/login_response.dart';
 import 'package:cliffix/app/modules/loginpage/view_model/api_service/api_service.dart';
 import 'package:cliffix/app/modules/routes/app_routes.dart';
-import 'package:cliffix/app/modules/signup/view_model/api_service/api_service.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -61,7 +60,7 @@ class LoginController extends GetxController {
       log(response.user!.email.toString());
       if (response.success!) {
         storedataLogin(response);
-        Get.offAllNamed(Routes.home);
+        Get.offAllNamed(Routes.bottomnav);
       } else {
         print(response.user.toString());
       }
@@ -70,7 +69,7 @@ class LoginController extends GetxController {
 
   void loadin() {
     isloading.value = true;
-    Future.delayed(Duration(seconds: 3), () {
+    Future.delayed(const Duration(seconds: 3), () {
       isloading.value = false;
     });
   }
